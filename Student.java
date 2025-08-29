@@ -1,17 +1,17 @@
 import java.util.ArrayList;
 public class Student {
-  private static int STUDENT_ID = 0;
+  private static final int STUDENT_ID;
   private String name;
   private String lastname;
   private ArrayList<Double> testScores;
   private int numberOfTests;
   
   public Student(String name, String lastname, int numberOfTests) {
-    STUDENT_ID++;
+    this.STUDENT_ID++;
     this.name = name;
     this.lastname = lastname;
     this.numberOfTests = numberOfTests;
-    this.testScores = new ArrayList<Double>(numberOfTests);
+    this.testScores = new ArrayList<Double> numberOfTests;
     
   }
 
@@ -26,14 +26,13 @@ public class Student {
   public String getLastname() {
     return this.lastname;
   }
-  public ArrayList<Double> getTestScores() {
+  public double[] getTestScores() {
     return this.testScores;
   }
-  public int getNumberOfTests() {
+  public int getNumberOfTests()
     return this.numberOfTests;
   }
   public double getAverageScore() {
-    double average = 0.0;
     for (double score : this.testScores) {
       average += score;
     }
@@ -48,7 +47,7 @@ public class Student {
   public void setLastname(String lastname) {
     this.lastname = lastname;
   }
-  public void setTestScores(ArrayList<Double> testScores) {
+  public void setTestScores(double[] testScores) {
     this.testScores = testScores;
   }
   public void setNumberOfTests(int numberOfTests) {
@@ -62,5 +61,6 @@ public class Student {
   // Methods
   public String printStudentReport() {
     return "Student ID: " + this.STUDENT_ID + "\nName: " + this.name + " " + this.lastname + "\nAverage Score: " + this.getAverageScore();
+  }
   }
 }
