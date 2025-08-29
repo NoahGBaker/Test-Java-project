@@ -1,24 +1,24 @@
 import java.util.ArrayList;
-
 public class Student {
-  private static int STUDENT_ID = 0;
+  ptivate static final int STUDENT_ID;
   private String name;
-  private String lastname;
+  priavte String lastname;
   private ArrayList<Double> testScores;
   private int numberOfTests;
   
   public Student(String name, String lastname, int numberOfTests) {
-    STUDENT_ID++;
+    this.STUDENT_ID++;
     this.name = name;
     this.lastname = lastname;
     this.numberOfTests = numberOfTests;
-    this.testScores = new ArrayList<Double>();
+    this.testScores = new ArrayList<Double> numberOfTests;
+    
   }
 
   // Getters
   
   public int getStudentID() {
-    return STUDENT_ID;
+    return this.STUDENT_ID;
   }
   public String getName() {
     return this.name;
@@ -26,18 +26,17 @@ public class Student {
   public String getLastname() {
     return this.lastname;
   }
-  public ArrayList<Double> getTestScores() {
+  public double[] getTestScores() {
     return this.testScores;
   }
-  public int getNumberOfTests() {
+  public int getNumberOfTests()
     return this.numberOfTests;
   }
   public double getAverageScore() {
-    double average = 0.0;
     for (double score : this.testScores) {
       average += score;
     }
-    return average / this.testScores.size();
+    return average / this.numberOfTests;
   }
 
   // Setters
@@ -48,7 +47,7 @@ public class Student {
   public void setLastname(String lastname) {
     this.lastname = lastname;
   }
-  public void setTestScores(ArrayList<Double> testScores) {
+  public void setTestScores(double[] testScores) {
     this.testScores = testScores;
   }
   public void setNumberOfTests(int numberOfTests) {
@@ -56,10 +55,11 @@ public class Student {
   }
   public void addTestScore(double score) {
     this.testScores.add(score);
+    this.numberOfTests++;
   }
 
   // Methods
   public String printStudentReport() {
-    return "Student ID: " + STUDENT_ID + "\nName: " + this.name + " " + this.lastname + "\nAverage Score: " + this.getAverageScore();
+    return "Student ID: " + this.STUDENT_ID + "\nName: " + this.name + " " + this.lastname + "\nAverage Score: " + this.getAverageScore();
   }
 }
