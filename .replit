@@ -21,9 +21,9 @@ args = "Java Application"
 name = "Java Application"
 author = "agent"
 
-[[workflows.workflow.tasks]]
-task = "shell.exec"
-args = "javac Main.java && java Main"
-
 [workflows.workflow.metadata]
 outputType = "console"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "javac *.java && java GradeManagerApp"
