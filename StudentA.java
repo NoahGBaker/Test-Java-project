@@ -75,6 +75,7 @@ public class StudentA {
     }
   }
   public void removeTestScore(double score)  {
+    // Find the index of the score to remove
     int index = -1;
     for (int i = 0; i < this.numberOfTests; i++) {
       if (this.testScores[i] == score) {
@@ -83,7 +84,9 @@ public class StudentA {
       }
     }
 
+    // If the score was found, remove it
     if (index != -1) {
+      // Shift elements to fill the gap
       for (int i = index; i < this.numberOfTests - 1; i++) {
         this.testScores[i] = this.testScores[i + 1];
       }
@@ -143,7 +146,7 @@ public class StudentA {
   // Methods
   public String printStudentReport() {
     String testScoreReports = "";
-    for (int i = 0; i < this.numberOfTests; i++) {
+    for (int i = 0; i < this.numberOfTests; i++) { // Iterate only through valid scores
       testScoreReports += this.testScores[i] + " (" + getLetterGrade(this.testScores[i]) + ")\n";
     }
     return "Student ID: " + StudentA.studentID + 
