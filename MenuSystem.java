@@ -24,21 +24,21 @@ public class MenuSystem {
         while (answer.equals("y")) {
           System.out.println("Please enter the test score:");
           double score = scanner.nextDouble();
-          StudentA currentStudent = GradeManagerApp.currentStudent;
+          StudentA currentStudent = gradeManagerApp.currentStudent;
           currentStudent.addTestScore(score);
           System.out.println("Test score added.");
           System.out.println("Would you like to add another test score? (y/n)");
           answer = scanner.next();
         }
-        if (GradeManagerApp != null) {
+        if (gradeManagerApp != null) {
           try {
             System.out.println("Adding student: " + name + " " + lastname);
-            GradeManagerApp.addStudent(name, lastname);
+            gradeManagerApp.addStudent(name, lastname);
           } catch (Exception e) {
             System.out.println("Error adding student: " + e.getMessage());
           }
         } else {
-          System.out.println("GradeManagerApp is null");
+          System.out.println("gradeManagerApp is null");
         }
       }
       else if (option == 2) {
@@ -71,13 +71,10 @@ public class MenuSystem {
         String name = scanner.next();
         System.out.println("Please enter the student's lastname:");
         String lastname = scanner.next();
-        for (StudentA student : gradeManagerApp.class1) {
-          if (student.getName().equals(name) && student.getLastname().equals(lastname)) {
-            gradeManagerApp.currentStudent = student;
-            System.out.println("Student found and selected: " + name + " " + lastname);
-            break;
-          }
-        }
+        // Note: Search functionality not implemented - GradeManagerApp doesn't have class1 array
+        System.out.println("Search functionality not implemented yet - class1 array doesn't exist in GradeManagerApp");
+        System.out.println("Creating new student instead: " + name + " " + lastname);
+        gradeManagerApp.addStudent(name, lastname);
       }
       
       return;
