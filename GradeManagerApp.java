@@ -33,7 +33,7 @@ class GradeManagerApp {
       System.out.println("Student: " + app.currentStudent.getName() + " " + app.currentStudent.getLastname());
       System.out.println("Test Scores: " + app.currentStudent.getTestScores());
       System.out.println("Average Score: " + String.format("%.2f", app.currentStudent.getAverageScore()));
-      System.out.println("Letter Grade: " + app.currentStudent.getLetterGrade());
+      System.out.println("Test Score Report:\n" + app.currentStudent.getTestScoreReport());
       System.out.println("GPA: " + String.format("%.2f", app.currentStudent.getGpa()));
     }
   }
