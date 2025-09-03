@@ -8,12 +8,27 @@ public class StudentA {
   private int numberOfTests;
   private static int studentID = 0;
 
+
+  public StudentA() {
+    this.name = "";
+    this.lastname = "";
+    this.testScores = new double[1000];
+    this.numberOfTests = 0;
+  }
+  
   public StudentA(String name, String lastname) {
     this.name = name;
     this.lastname = lastname;
     this.testScores = new double[1000];
     this.numberOfTests = 0;
     StudentA.studentID++;
+  }
+
+  public StudentA(String name, String lastname, double[] testScores) {
+    this.name = name;
+    this.lastname = lastname;
+    this.testScores = testScores;
+    this.numberOfTests = testScores.length;
   }
 
   // Getters
@@ -40,7 +55,9 @@ public class StudentA {
     for (int i = 0; i < this.numberOfTests; i++) { 
       average += this.testScores[i];
     }
-    return average / this.numberOfTests;
+    double result = average / this.numberOfTests;
+    result = Math.round(result * 100.0) / 100.0;
+    return result;
   }
 
   // Setters
@@ -87,8 +104,47 @@ public class StudentA {
   public String getTestScoreReport() {
     String testScoreReports = "";
     for (int i = 0; i < this.numberOfTests; i++) {
-      testScoreReports += this.testScores[i] + "\n";
+      double testScore = this.testScores[i];
+      if (testScore >= 90) {
+        testScoreReports += "Test " + (i + 1) + ": " + testScore + " (A)\n";
+      }
+      else if (testScore >= 80) {
+        testScoreReports += "Test " + (i + 1) + ": " + testScore + " (B)\n";
+      }
+      else if (testScore >= 70) {
+        testScoreReports += "Test " + (i + 1) + ": " + testScore + " (C)\n";
+      }
+      else if (testScore >= 60) {
+        testScoreReports += "Test " + (i + 1) + ": " + testScore + " (D)\n";
+      }
+      else {
+        testScoreReports += "Test " + (i + 1) + ": " + testScore + " (F)\n";
+      }
     }
     return testScoreReports;
+  }
+
+  public Double getGpa() {
+    double gpa = 0.0;
+    for (int i = 0; i < this.numberOfTests; i++) {
+      if (this.testScores[i] >= 90) {
+        gpa += 4;
+      }
+      else if (this.testScores[i] >= 80) {
+        gpa +=3;
+      } 
+      else if (this.testScores[i] >= 70) {
+        gpa += 2;
+      }
+      else if (this.testScores[i] >= 60) {
+        gpa += 1;
+      }
+      else {
+        gpa += 0;
+      }
+    }
+    double result = gpa / (double) this.numberOfTests;
+    result = Math.round(result * 100.0) / 100.0;
+    return result;
   }
 }

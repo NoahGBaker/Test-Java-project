@@ -17,6 +17,10 @@ author = "agent"
 task = "workflow.run"
 args = "Java Application"
 
+[[workflows.workflow.tasks]]
+task = "workflow.run"
+args = "Grade System Debugger"
+
 [[workflows.workflow]]
 name = "Java Application"
 author = "agent"
@@ -27,3 +31,11 @@ outputType = "console"
 [[workflows.workflow.tasks]]
 task = "shell.exec"
 args = "javac *.java && java GradeManagerApp"
+
+[[workflows.workflow]]
+name = "Grade System Debugger"
+author = "agent"
+
+[[workflows.workflow.tasks]]
+task = "shell.exec"
+args = "javac *.java && java GradeSystemDebugger"
