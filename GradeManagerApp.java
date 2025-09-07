@@ -1,15 +1,15 @@
 class GradeManagerApp {
     public StudentA currentStudent;
-    
+
     public GradeManagerApp() {
         this.currentStudent = null;
     }
-    
+
     public void addStudent(String name, String lastname) {
         currentStudent = new StudentA(name, lastname);
         System.out.println("Student added: " + currentStudent.getName() + " " + currentStudent.getLastname());
     }
-    
+
     public void addTestScore(double score) {
         if (currentStudent != null) {
             currentStudent.addTestScore(score);
@@ -18,7 +18,7 @@ class GradeManagerApp {
             System.out.println("No student available to add test score to.");
         }
     }
-    
+
     public void removeTestScore(double score) {
         if (currentStudent != null) {
             currentStudent.removeTestScore(score);
@@ -27,21 +27,21 @@ class GradeManagerApp {
             System.out.println("No student available to remove test score from.");
         }
     }
-    
+
     public static void main(String[] args) {
         System.out.println("GradeManagerApp running...");
-        
+
         // Create an instance of GradeManagerApp
         GradeManagerApp app = new GradeManagerApp();
-        
+
         // Add a student
         app.addStudent("John", "Doe");
-        
+
         // Add some test scores
         app.addTestScore(85.5);
         app.addTestScore(92.0);
         app.addTestScore(78.5);
-        
+
         // Display student information and grades
         if (app.currentStudent != null) {
             System.out.println("\n=== Student Grade Report ===");
