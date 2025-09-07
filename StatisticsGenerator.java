@@ -21,11 +21,9 @@ public class StatisticsGenerator {
         double[] scores = student.getTestScores();
         int numTests = student.getNumberOfTests();
         
-        // Basic statistics
         System.out.println("Average Score: " + String.format("%.2f", student.getAverageScore()));
         System.out.println("GPA: " + String.format("%.2f", student.getGpa()));
         
-        // Additional statistics
         double highest = getHighestScore(scores, numTests);
         double lowest = getLowestScore(scores, numTests);
         double median = getMedianScore(scores, numTests);
@@ -36,22 +34,18 @@ public class StatisticsGenerator {
         System.out.println("Median Score: " + String.format("%.2f", median));
         System.out.println("Standard Deviation: " + String.format("%.2f", standardDeviation));
         
-        // Grade distribution
         displayGradeDistribution(scores, numTests);
         
-        // Performance trend
         displayPerformanceTrend(scores, numTests);
     }
     
     public static void displaySampleStatistics() {
-        System.out.println("\n=== Sample Class Statistics Demo ===");
+        System.out.println("\n=== Sample Class Statistics ===");
         
-        // Create sample students for demonstration
         StudentA[] sampleClass = createSampleClass();
         
         System.out.println("Class Size: " + sampleClass.length + " students");
         
-        // Calculate class statistics
         double classAverage = calculateClassAverage(sampleClass);
         double classGPA = calculateClassGPA(sampleClass);
         double highestClassScore = getHighestClassScore(sampleClass);
@@ -62,10 +56,8 @@ public class StatisticsGenerator {
         System.out.println("Highest Score in Class: " + String.format("%.2f", highestClassScore));
         System.out.println("Lowest Score in Class: " + String.format("%.2f", lowestClassScore));
         
-        // Display class grade distribution
         displayClassGradeDistribution(sampleClass);
         
-        // Top performers
         displayTopPerformers(sampleClass);
     }
     
@@ -112,7 +104,7 @@ public class StatisticsGenerator {
     }
     
     private static void displayGradeDistribution(double[] scores, int numTests) {
-        int[] gradeCount = new int[5]; // A, B, C, D, F
+        int[] gradeCount = new int[5];
         
         for (int i = 0; i < numTests; i++) {
             if (scores[i] >= 90) gradeCount[0]++;
@@ -256,8 +248,6 @@ public class StatisticsGenerator {
     
     private static void displayTopPerformers(StudentA[] students) {
         System.out.println("\nTop 3 Students by GPA:");
-        
-        // Simple bubble sort by GPA
         StudentA[] sortedStudents = new StudentA[students.length];
         System.arraycopy(students, 0, sortedStudents, 0, students.length);
         

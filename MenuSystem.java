@@ -3,6 +3,8 @@ public class MenuSystem {
 
   private static Scanner scanner = new Scanner(System.in);
   private static GradeManagerApp gradeManagerApp = new GradeManagerApp();
+  private StudentA[] class1 = new StudentA[1000];
+
   
   public static void main(String[] args) {
     System.out.println("Menu System");
@@ -129,8 +131,8 @@ public class MenuSystem {
     System.out.println("Number of Tests: " + student.getNumberOfTests());
     
     if (student.getNumberOfTests() > 0) {
-      System.out.println("Average Score: " + String.format("%.2f", student.getAverageScore()));
-      System.out.println("GPA: " + String.format("%.2f", student.getGpa()));
+      System.out.println("Average Score: " + student.getAverageScore());
+      System.out.println("GPA: " + student.getGpa());
       System.out.println("\nTest Scores:");
       System.out.println(student.getTestScoreReport());
     } else {
@@ -172,43 +174,11 @@ public class MenuSystem {
       System.out.println("Current student: " + gradeManagerApp.currentStudent.getName() + " " + gradeManagerApp.currentStudent.getLastname());
       System.out.println("Would you like to view this student's details? (y/n)");
       String answer = scanner.next();
-      if (answer.equalsIgnoreCase("y")) {
+      if (answer == "y") {
         handleStudentReport();
       }
     } else {
       System.out.println("No students in the system.");
-    }
-  }
-
-  public static void checkAll() {
-    if (gradeManagerApp.currentStudent == null) {
-      System.out.println("No student selected.");
-      System.out.println("Please select a student.");
-      System.out.println("1. Add Student");
-      System.out.println("2. Search for Existing Student");
-      System.out.println("3. Exit");
-      int option = scanner.nextInt();
-      if (option == 1) {
-        System.out.println("Please enter the student's name:");
-        String name = scanner.next();
-        System.out.println("Please enter the student's lastname:");
-        String lastname = scanner.next();
-        gradeManagerApp.addStudent(name, lastname);
-      }
-      else if (option == 2) {
-        System.out.println("Please enter the student's name:");
-        String name = scanner.next();
-        System.out.println("Please enter the student's lastname:");
-        String lastname = scanner.next();
-        // Search for existing student
-        System.out.println("Search functionality not implemented yet - class1 array doesn't exist in GradeManagerApp");
-        System.out.println("Creating new student instead: " + name + " " + lastname);
-        gradeManagerApp.addStudent(name, lastname);
-      }
-      
-      return;
-    } else {
-      System.out.println("Current student: " + gradeManagerApp.currentStudent.getName() + " " + gradeManagerApp.currentStudent.getLastname());
     }
   }
 }
