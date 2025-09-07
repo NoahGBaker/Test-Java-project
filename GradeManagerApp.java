@@ -80,4 +80,47 @@ class GradeManagerApp {
                              " (Tests: " + student.getNumberOfTests() + ")");
         }
     }
+    
+    public static void main(String[] args) {
+        System.out.println("GradeManagerApp running...");
+        
+        // Create an instance of GradeManagerApp
+        GradeManagerApp app = new GradeManagerApp();
+        
+        // Add multiple students
+        app.addStudent("John", "Doe");
+        app.addStudent("Jane", "Smith");
+        app.addStudent("Bob", "Johnson");
+        
+        // Add some test scores to different students
+        app.addTestScore(0, 85.5); // John
+        app.addTestScore(0, 92.0);
+        app.addTestScore(0, 78.5);
+        
+        app.addTestScore(1, 88.0); // Jane
+        app.addTestScore(1, 91.5);
+        
+        app.addTestScore(2, 76.0); // Bob
+        app.addTestScore(2, 82.5);
+        app.addTestScore(2, 89.0);
+        
+        // Display class information
+        System.out.println("\n=== Class Summary ===");
+        System.out.println("Total Students: " + app.students.size());
+        
+        if (!app.students.isEmpty()) {
+            System.out.println("\n=== All Student Reports ===");
+            for (int i = 0; i < app.students.size(); i++) {
+                StudentA student = app.students.get(i);
+                System.out.println("\n[" + (i + 1) + "] " + student.getName() + " " + student.getLastname());
+                System.out.println("    Tests: " + student.getNumberOfTests());
+                if (student.getNumberOfTests() > 0) {
+                    System.out.println("    Average: " + String.format("%.2f", student.getAverageScore()));
+                    System.out.println("    GPA: " + String.format("%.2f", student.getGpa()));
+                } else {
+                    System.out.println("    No test scores yet");
+                }
+            }
+        }
+    }
 }
