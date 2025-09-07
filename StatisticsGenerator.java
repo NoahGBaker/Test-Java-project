@@ -256,6 +256,8 @@ public class StatisticsGenerator {
     
     private static void displayTopPerformers(StudentA[] students) {
         System.out.println("\nTop 3 Students by GPA:");
+        
+        // Simple bubble sort by GPA
         StudentA[] sortedStudents = new StudentA[students.length];
         System.arraycopy(students, 0, sortedStudents, 0, students.length);
         
