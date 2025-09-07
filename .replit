@@ -15,15 +15,15 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Java Application"
+args = "Menu System"
 
 [[workflows.workflow]]
-name = "Java Application"
+name = "Menu System"
 author = "agent"
-
-[workflows.workflow.metadata]
-outputType = "console"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "javac *.java && java GradeManagerApp"
+args = "javac *.java && java MenuSystem"
+
+[workflows.workflow.metadata]
+outputType = "console"
