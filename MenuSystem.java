@@ -145,12 +145,9 @@ public class MenuSystem {
     }
     
     System.out.println("\n=== Class Report ===");
-    System.out.println("Note: This demo version shows the current student only.");
-    System.out.println("In a full system, this would show all students in the class.");
     
     handleStudentReport();
     
-    // Generate a report using ReportGenerator
     try {
       ReportGenerator reportGen = new ReportGenerator();
       System.out.println("\n" + reportGen.generateReport(gradeManagerApp.currentStudent));
@@ -170,8 +167,6 @@ public class MenuSystem {
   
   private static void handleSearchStudents() {
     System.out.println("\n=== Search Students ===");
-    System.out.println("Note: This demo version only supports the current student.");
-    System.out.println("In a full system, this would search through all students.");
     
     if (gradeManagerApp.currentStudent != null) {
       System.out.println("Current student: " + gradeManagerApp.currentStudent.getName() + " " + gradeManagerApp.currentStudent.getLastname());
