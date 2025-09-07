@@ -42,6 +42,7 @@ public class MenuSystem {
         }
       }
       else if (option == 2) {
+        
         System.out.println("Please enter the test score:");
         double score = scanner.nextDouble();
         StudentA currentStudent = gradeManagerApp.currentStudent;
