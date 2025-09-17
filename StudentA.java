@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 class Student {
     private String firstName;
     private String lastName;
@@ -5,6 +6,7 @@ class Student {
     private int numberOfTests;
     private static int nextStudentID = 1000;
     private int studentID;
+    private ArrayList<Integer> classesTaken;
 
     public Student() {
         this.firstName = "";
@@ -14,12 +16,14 @@ class Student {
         this.studentID = nextStudentID++;
     }
 
-    public Student(String firstName, String lastName) {
+    public Student(String firstName, String lastName, int classNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.testScores = new double[100];
         this.numberOfTests = 0;
         this.studentID = nextStudentID++;
+        this.classesTaken = new ArrayList<>();
+        this.classesTaken.add(classNumber);
     }
 
     // Getters
@@ -29,10 +33,21 @@ class Student {
     public int getStudentID() { return studentID; }
     public int getNumberOfTests() { return numberOfTests; }
     public double[] getTestScores() { return testScores; }
+    public ArrayList<Integer> getClassesTaken() { return classesTaken; }
+    public ArrayList<Object> getAllInfo() {
+        ArrayList<Object> info = new ArrayList<>();
+        info.add(firstName);
+        info.add(lastName);
+        info.add(studentID);
+        info.add(classesTaken);
+        return info;
+    }
 
     // Setters
     public void setFirstName(String firstName) { this.firstName = firstName; }
     public void setLastName(String lastName) { this.lastName = lastName; }
+    public void setStudentID(int studentID) { this.studentID = studentID; }
+    
 
     // Grade management
     public void addTestScore(double score) throws BadGradeException {

@@ -1,126 +1,221 @@
 import java.util.ArrayList;
+import java.util.Scanner;
 
-class GradeManagerApp {
-    private ArrayList<StudentA> students;
+class GradeManager {
+    private ArrayList<Student> students;
+    public Integer classNumber;
     
-    public GradeManagerApp() {
+    public GradeManager() {
         this.students = new ArrayList<>();
     }
-    
-    public void addStudent(String name, String lastname) {
-        StudentA newStudent = new StudentA(name, lastname);
+
+    // Student collection management
+    public void addStudent(String firstName, String lastName) {
+        Student newStudent = new Student(firstName, lastName, classNumber);
         students.add(newStudent);
-        System.out.println("Student added: " + newStudent.getName() + " " + newStudent.getLastname());
     }
-    
-    public void addTestScore(int studentIndex, double score) {
-        if (studentIndex >= 0 && studentIndex < students.size()) {
-            students.get(studentIndex).addTestScore(score);
-            System.out.println("Test score added: " + score);
+
+    public void removeStudent(int index) throws Exception {
+        if (index >= 0 && index < students.size()) {
+            students.remove(index);
         } else {
-            System.out.println("Invalid student selection.");
+            throw new Exception("Invalid student index");
         }
     }
-    
-    public void removeTestScore(int studentIndex, double score) {
-        if (studentIndex >= 0 && studentIndex < students.size()) {
-            students.get(studentIndex).removeTestScore(score);
-            System.out.println("Test score removed: " + score);
-        } else {
-            System.out.println("Invalid student selection.");
-        }
-    }
-    
-    public ArrayList<StudentA> getStudents() {
-        return students;
-    }
-    
-    public StudentA getStudent(int index) {
+
+    public Student getStudent(int index) throws Exception {
         if (index >= 0 && index < students.size()) {
             return students.get(index);
+        } else {
+            throw new Exception("Invalid student index");
         }
-        return null;
     }
-    
+
+    public ArrayList<Student> getAllStudents() {
+        return students;
+    }
+
     public int getStudentCount() {
         return students.size();
     }
-    
-    public StudentA findStudent(String name, String lastname) {
-        for (StudentA student : students) {
-            if (student.getName().equalsIgnoreCase(name) && 
-                student.getLastname().equalsIgnoreCase(lastname)) {
+
+    public void checkIfStudentsExist() throws NoStudentsException {
+        if (students.isEmpty()) {
+            throw new NoStudentsException("No students found. Add students first.");
+        }
+    }
+
+    // Search functionality
+    public Student findStudent(String firstName, String lastName) {
+        for (Student student : students) {
+            if (student.getFirstName().equalsIgnoreCase(firstName) && 
+                student.getLastName().equalsIgnoreCase(lastName)) {
                 return student;
             }
         }
         return null;
     }
-    
-    public int findStudentIndex(String name, String lastname) {
+
+    public int findStudentIndex(String firstName, String lastName) {
         for (int i = 0; i < students.size(); i++) {
-            StudentA student = students.get(i);
-            if (student.getName().equalsIgnoreCase(name) && 
-                student.getLastname().equalsIgnoreCase(lastname)) {
+            Student student = students.get(i);
+            if (student.getFirstName().equalsIgnoreCase(firstName) && 
+                student.getLastName().equalsIgnoreCase(lastName)) {
                 return i;
             }
         }
         return -1;
     }
-    
-    public void displayAllStudents() {
-        if (students.isEmpty()) {
-            System.out.println("No students in the class.");
-            return;
+
+    // Statistical operations
+    public double getClassAverage() {
+        if (students.isEmpty()) return 0.0;
+
+        double total = 0;
+        int studentsWithGrades = 0;
+
+        for (Student student : students) {
+            if (student.getNumberOfTests() > 0) {
+                total += student.getAverageScore();
+                studentsWithGrades++;
+            }
         }
-        
-        System.out.println("\n=== All Students ===");
-        for (int i = 0; i < students.size(); i++) {
-            StudentA student = students.get(i);
-            System.out.println((i + 1) + ". " + student.getName() + " " + student.getLastname() + 
-                             " (Tests: " + student.getNumberOfTests() + ")");
+
+        if (studentsWithGrades > 0) {
+            return Math.round((total / studentsWithGrades) * 100.0)/100.0;
+        } else {
+            return 0.0;
         }
     }
-    
-    public static void main(String[] args) {
-        System.out.println("GradeManagerApp running...");
-        
-        // Create an instance of GradeManagerApp
-        GradeManagerApp app = new GradeManagerApp();
-        
-        // Add multiple students
-        app.addStudent("John", "Doe");
-        app.addStudent("Jane", "Smith");
-        app.addStudent("Bob", "Johnson");
-        
-        // Add some test scores to different students
-        app.addTestScore(0, 85.5); // John
-        app.addTestScore(0, 92.0);
-        app.addTestScore(0, 78.5);
-        
-        app.addTestScore(1, 88.0); // Jane
-        app.addTestScore(1, 91.5);
-        
-        app.addTestScore(2, 76.0); // Bob
-        app.addTestScore(2, 82.5);
-        app.addTestScore(2, 89.0);
-        
-        // Display class information
-        System.out.println("\n=== Class Summary ===");
-        System.out.println("Total Students: " + app.students.size());
-        
-        if (!app.students.isEmpty()) {
-            System.out.println("\n=== All Student Reports ===");
-            for (int i = 0; i < app.students.size(); i++) {
-                StudentA student = app.students.get(i);
-                System.out.println("\n[" + (i + 1) + "] " + student.getName() + " " + student.getLastname());
-                System.out.println("    Tests: " + student.getNumberOfTests());
-                if (student.getNumberOfTests() > 0) {
-                    System.out.println("    Average: " + String.format("%.2f", student.getAverageScore()));
-                    System.out.println("    GPA: " + String.format("%.2f", student.getGpa()));
-                } else {
-                    System.out.println("    No test scores yet");
+
+    public double getClassGPA() {
+        if (students.isEmpty()) return 0.0;
+
+        double total = 0;
+        int studentsWithGrades = 0;
+
+        for (Student student : students) {
+            if (student.getNumberOfTests() > 0) {
+                total += student.getGPA();
+                studentsWithGrades++;
+            }
+        }
+
+        if (studentsWithGrades > 0) {
+            return Math.round((total / studentsWithGrades) * 100.0)/100.0;
+        } else {
+            return 0.0;
+        }
+    }
+
+    public double getHighestGrade() {
+        double highest = 0;
+        for (Student student : students) {
+            for (int i = 0; i < student.getNumberOfTests(); i++) {
+                if (student.getTestScores()[i] > highest) {
+                    highest = student.getTestScores()[i];
                 }
             }
         }
+        return highest;
+    }
+
+    public double getLowestGrade() {
+        double lowest = 100;
+        for (Student student : students) {
+            for (int i = 0; i < student.getNumberOfTests(); i++) {
+                if (student.getTestScores()[i] < lowest) {
+                    lowest = student.getTestScores()[i];
+                }
+            }
+        }
+        if (lowest == 100) {
+            return 0;
+        } else {
+            return lowest;
+        }
+    }
+
+    public int getTotalGradesCount() {
+        int total = 0;
+        for (Student student : students) {
+            total += student.getNumberOfTests();
+        }
+        return total;
+    }
+
+    // Sample data generation
+    public void generateSampleData() {
+        students.clear(); // Clear existing data
+
+        Student student1 = new Student("John", "Smith", classNumber);
+        try {
+            int randomTests = (int) (Math.random() * 5) + 1;
+            for (int i = 0; i < randomTests; i++) {
+                student1.addTestScore(Math.round((85.0 + (Math.random() * 10))*100)/100);
+            }
+        } catch (BadGradeException e) { /* Should not happen */ }
+        students.add(student1);
+
+        Student student2 = new Student("Jane", "Doe", classNumber);
+        try {
+            int randomTests = (int) (Math.random() * 5) + 1;
+            for (int i = 0; i < randomTests; i++) {
+                student2.addTestScore(Math.round((70.0 + (Math.random() * 30))*100)/100);
+            }
+        } catch (BadGradeException e) { /* Should not happen */ }
+        students.add(student2);
+
+        Student student3 = new Student("Bob", "Johnson", classNumber);
+        try {
+            int randomTests = (int) (Math.random() * 5) + 1;
+            for (int i = 0; i < randomTests; i++) {
+                student3.addTestScore(Math.round((50 + (Math.random() * 50))*100)/100);
+            }
+        } catch (BadGradeException e) { /* Should not happen */ }
+        students.add(student3);
+
+        Student student4 = new Student("Alice", "Brown", classNumber);
+        try {
+            int randomTests = (int) (Math.random() * 5) + 1;
+            for (int i = 0; i < randomTests; i++) {
+                student4.addTestScore(Math.round((Math.random() * 95)*100)/100);
+            }
+        } catch (BadGradeException e) { /* Should not happen */ }
+        students.add(student4);
+
+        Student student5 = new Student("Mike", "Wilson", classNumber);
+        try {
+            int randomTests = (int) (Math.random() * 5) + 1;
+            for (int i = 0; i < randomTests; i++) {
+                student5.addTestScore(Math.round((85.0 + (Math.random() * 10))*100)/100);
+            }
+        } catch (BadGradeException e) { /* Should not happen */ }
+        students.add(student5);
+    }
+
+    public ArrayList<Student> getStudentsFromClass(int classNumber) {
+        ArrayList<Student> classStudents = new ArrayList<>();
+        for (Student student : students) {
+            if (student.getClassesTaken().contains(classNumber)) {
+                classStudents.add(student);
+            }
+        }
+        return classStudents;
+    }
+
+    public void checkIfStudentsExistInClass(int classNumber) throws NoStudentsException {
+        if (getStudentsFromClass(classNumber).isEmpty()) {
+            throw new NoStudentsException("No students found in Class " + classNumber + ". Add students first.");
+        }
+    }
+    public ArrayList<Student> getStudentsFromOtherClasses(int excludeClassNumber) {
+        ArrayList<Student> otherStudents = new ArrayList<>();
+        for (Student student : students) {
+            if (!student.getClassesTaken().contains(excludeClassNumber)) {
+                otherStudents.add(student);
+            }
+        }
+        return otherStudents;
     }
 }
