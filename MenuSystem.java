@@ -38,7 +38,7 @@ public class MenuSystem {
     - Exit
     - Add Student to Existing Class
     */
-    
+    // Run the menu system and operations
     public void run() {
         gradeManager.classNumber = currentClass;
         System.out.println("Grade Management System");
@@ -65,7 +65,7 @@ public class MenuSystem {
         
         input.close();
     }
-
+    // Search for a class and set it as the current class
     public void searchClass() {
         try {
             System.out.println("Searching for a class...");
@@ -78,7 +78,7 @@ public class MenuSystem {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
+    // run the inside class menu system and operations
     public void runClass() {
         while (true) {
             try {
@@ -110,7 +110,7 @@ public class MenuSystem {
             }
         }
     }
-    
+    // Show the menu options for inside the class
     private void showMenu() {
         System.out.println("\nChoose an option:");
         System.out.println("1. Add Student");
@@ -135,7 +135,7 @@ public class MenuSystem {
             return -1;
         }
     }
-
+    // Get valid name from user (runs twice for first and last name)
     private String getValidName(String prompt) throws Exception {
         System.out.print(prompt);
         String name = input.nextLine();
@@ -149,7 +149,7 @@ public class MenuSystem {
 
         return name;
     }
-
+    // Get valid grade from user (0-100) throws BadGradeException if out of range
     private double getValidGrade() throws BadGradeException {
         try {
             System.out.print("Enter grade (0-100) or -1 to stop: ");
@@ -291,7 +291,7 @@ public class MenuSystem {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
+    // Search for students by first and last name
     private void searchStudents() {
         try {
             gradeManager.checkIfStudentsExist();
@@ -300,6 +300,7 @@ public class MenuSystem {
             String lastName = getValidName("Enter last name: ");
 
             Student found = gradeManager.findStudent(firstName, lastName);
+            // Display student info if found
             if (found != null) {
                 System.out.println("Found: " + found.getFullName());
                 System.out.println("Tests: " + found.getNumberOfTests());
@@ -317,7 +318,8 @@ public class MenuSystem {
             System.out.println("Error: " + e.getMessage());
         }
     }
-
+    // Generate sample data for testing purposes
+    // Displays a summary of the generated data
     private void generateSampleData() {
         try {
             System.out.println("Generating sample data...");
@@ -330,7 +332,7 @@ public class MenuSystem {
             System.out.println("Error generating sample data: " + e.getMessage());
         }
     }
-
+    // Select a student from the current class (used in addGrade and showStudentReport)
     private Student selectStudent() {
         try {
             ArrayList<Student> students = gradeManager.getStudentsFromClass(currentClass);
@@ -341,6 +343,7 @@ public class MenuSystem {
             }
 
             System.out.println("\nStudents in Class " + currentClass + ":");
+            // Display all students in the current class
             for (int i = 0; i < students.size(); i++) {
                 Student student = students.get(i);
                 System.out.println((i + 1) + ". " + student.getFullName() + 
@@ -368,12 +371,14 @@ public class MenuSystem {
             return null;
         }
     }
+    // Add a new class
     private void addClass() {
         System.out.println("Adding a new class...");
         currentClass++;
         System.out.println("Class " + currentClass + " added.");
         System.out.println("Now managing Class " + currentClass);
     }
+    // Add a student from an existing class to the current class
     private void addStudentFromExistingClass(int currentClassNumber) {
         try {
             // Get all students from OTHER classes (not current class)

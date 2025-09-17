@@ -193,7 +193,7 @@ class GradeManager {
         } catch (BadGradeException e) { /* Should not happen */ }
         students.add(student5);
     }
-
+    // Get all students from a specific class
     public ArrayList<Student> getStudentsFromClass(int classNumber) {
         ArrayList<Student> classStudents = new ArrayList<>();
         for (Student student : students) {
@@ -203,7 +203,7 @@ class GradeManager {
         }
         return classStudents;
     }
-
+    // Check if there are students in the current class
     public void checkIfStudentsExistInClass(int classNumber) throws NoStudentsException {
         if (getStudentsFromClass(classNumber).isEmpty()) {
             throw new NoStudentsException("No students found in Class " + classNumber + ". Add students first.");

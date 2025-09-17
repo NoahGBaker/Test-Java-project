@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 class ReportGenerator {
-
+    // Generate reports for students and the class itself
     public String generateStudentReport(Student student) {
         String report = "=== Student Report ===\n";
         report += "Name: " + student.getFullName() + "\n";
@@ -24,7 +24,7 @@ class ReportGenerator {
 
         return report;
     }
-
+    // Generate class report for all students in the class
     public String generateClassReport(GradeManager manager) {
         String report = "=== Class Report ===\n";
         ArrayList<Student> students = manager.getAllStudents();
@@ -52,7 +52,7 @@ class ReportGenerator {
 
         return report;
     }
-
+    // Generate statistics report for the classq
     public String generateStatisticsReport(GradeManager manager) {
         String report = "=== Class Statistics ===\n";
         report += "Total Students: " + manager.getStudentCount() + "\n";
@@ -69,7 +69,7 @@ class ReportGenerator {
 
         return report;
     }
-
+    // Generate sample data summary for testing purposes
     public String generateSampleDataSummary(GradeManager manager) {
         String report = "=== Sample Data Generated ===\n";
         report += "Students added: " + manager.getStudentCount() + "\n";
